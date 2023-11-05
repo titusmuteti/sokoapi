@@ -11,6 +11,6 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
-        value: "postgres://username:password@your-hostname:5432/your-database-name"
+        value: "postgres://umqzjqus:uQAgaKtz40n78QfhVEB9ZUyYzi693eBP@rain.db.elephantsql.com/umqzjqus"
       - key: RAILS_MASTER_KEY
         sync: false
