@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: sokoapi_development
+  database: sokodb_development
 
 test:
   <<: *default
-  database: sokoapi_test
+  database: sokodb_test
 
 production:
   <<: *default
