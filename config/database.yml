@@ -7,7 +7,7 @@ default: &default
 
 development:
   <<: *default
-  database: sokoapi_development
+  database: <%= ENV.fetch("DB_NAME", "sokoapi_development") %>
 
 test:
   <<: *default
