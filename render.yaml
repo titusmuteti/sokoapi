@@ -1,7 +1,7 @@
 databases:
   - name: sokodb
-    databaseName: sokodb
-    user: sokouser
+    databaseName: umqzjqus
+    user: umqzjqus
 
 services:
   - type: web
