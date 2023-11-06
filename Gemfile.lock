@@ -191,13 +191,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.4.2)
-      actionpack (>= 5.2)
-      activesupport (>= 5.2)
-      sprockets (>= 3.0.0)
     sqlite3 (1.6.8-x86_64-linux)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
@@ -243,7 +236,6 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.8)
   selenium-webdriver
-  sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
