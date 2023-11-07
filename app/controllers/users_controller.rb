@@ -35,6 +35,7 @@ class UsersController < ApplicationController
         order.update(user_id: nil)
       end
     end
+  end
 
 
   private
