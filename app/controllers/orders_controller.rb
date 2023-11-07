@@ -9,24 +9,36 @@ class OrdersController < ApplicationController
     render json: order, status: :ok
   end
 
-  # def new
-  #   @order = Order.new
-  # end
+  def edit
+    order = Order.find(params[:id])
+  end
 
-  # def edit
-  # end
+  def create
+    order = Order.new(order_params)
 
-  # def create
-  #   @order = Order.new(order_params)
-  # end
+    if order.save
+      render json: order, status: :created
+    else
+      render json: order.errors, status: :unprocessable_entity
+    end
+  end
 
-  # def update
-  # end
+  def update
+    order = Order.find(params[:id])
 
-  # DELETE /orders/1 or /orders/1.json
-  # def destroy
-  #   @order.destroy
-  # end
+    if order.update(order_params)
+      render json: order, status: :ok
+    else
+      render json: order.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    order = Order.find(params[:id])
+    order.destroy
+    
+    render json: { message: 'order deleted successfully' }, status: :o
+  end
 
   private
 
