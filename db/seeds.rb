@@ -179,7 +179,7 @@ users = [
         address: "nairobi",
         region: "nairobi",
         city: "nairobi",
-        password: "John1234"
+        password: "John123"
 
     }
 ]
