@@ -1,8 +1,8 @@
 class AddressesController < ApplicationController
     def index
         addresses = Address.all
-        render json: orders, status: :ok
-    end
+        render json: addresses, status: :ok
+      end
     
 
     def edit
