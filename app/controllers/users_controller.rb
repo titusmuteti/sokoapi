@@ -40,9 +40,9 @@ class UsersController < ApplicationController
 
 
   private
-  # def record_invalid
-  #   render json: {error: "Invalid user"}, status: :unprocessable_entity
-  # end
+  def record_invalid
+    render json: {error: "Invalid user"}, status: :unprocessable_entity
+  end
 
     # Only allow a list of trusted parameters through.
     def user_params

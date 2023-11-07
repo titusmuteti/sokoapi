@@ -1,5 +1,6 @@
 require 'active_record'
 require 'faker'
+require 'bcrypt'
 
 puts "🌱 Seeding..."
 
@@ -173,10 +174,13 @@ users = [
     {
         first_name: "John",
         last_name: "Doe",
+        email: "john@example.com",
         phone_number: "0712345678",
         address: "nairobi",
         region: "nairobi",
         city: "nairobi",
+        password: "John1234"
+
     }
 ]
 
