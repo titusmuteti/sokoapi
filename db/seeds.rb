@@ -197,17 +197,15 @@ products.each do |product_data|
     end
 end
 
-#keeping track of phone numbers
-used_phone_numbers = Set.new
+existing_user = User.find_by(phone_number: user_data[:phone_number])
 
-users.each do |user_data|
-    phone_number = user_data[:phone_number]
-    
-    if !used_phone_numbers.include?(phone_number)
-        # Create the user only if the phone number hasn't been used yet
-        User.create(user_data)
-        used_phone_numbers.add(phone_number)
-    end
+if existing_user.nil?
+  # If the user does not exist, create the user
+  new_user = User.create(user_data)
+  address_data[:user_id] = new_user.id # Set the user_id in the address_data
+else
+  # If the user already exists, use the existing user's ID
+  address_data[:user_id] = existing_user.id
 end
 
 
