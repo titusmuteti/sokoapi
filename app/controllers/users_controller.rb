@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by_id(id: session[:user_id_id])
-      if user
-        render json: user, status: :ok
-      else
-        render json: { error: "You must be logged in to access this content" }, status: :unauthorized
-      end
+    user = User.find_by_id(session[:user_id])
+    if user
+      render json: user, status: :ok
+    else
+      render json: { error: "You must be logged in to access this content" }, status: :unauthorized
+    end
   end
 
 
@@ -32,10 +32,10 @@ class UsersController < ApplicationController
     orders = Order.where(user_id: user.id)
 
     if orders.any?
-      Order.each do |order|
+      orders.each do |order|
         order.destroy
       end
-    end
+    end    
   end
 
 
