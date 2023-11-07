@@ -197,13 +197,14 @@ products.each do |product_data|
     end
 end
 
-users.each do |user|
-    existing_user = User.find_by(phone_number: user[:phone_number])
+users.each do |user_data|
+    existing_user = User.find_by(phone_number: user_data[:phone_number])
 
     if existing_user.nil?
-        User.create(user)
+        User.create(user_data)
     end
 end
+
 
 addresses.each do |address|
     Address.create(address)
