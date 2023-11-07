@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
     before_action :set_current_user
 
-    include ActionController::Cookie
+    include ActionController::Cookies
 
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
