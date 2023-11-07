@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
   def index
     users = User.all
@@ -40,9 +40,9 @@ class UsersController < ApplicationController
 
 
   private
-  def record_invalid
-    render json: {error: "Invalid user"}, status: :unprocessable_entity
-  end
+  # def record_invalid
+  #   render json: {error: "Invalid user"}, status: :unprocessable_entity
+  # end
 
     # Only allow a list of trusted parameters through.
     def user_params
