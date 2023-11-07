@@ -4,31 +4,42 @@ class AddressesController < ApplicationController
         render json: orders, status: :ok
     end
     
-      def show
+
+    def edit
+      @address = Address.find(params[:id])
+    end
+  
+    def create
+      address = Address.new(address_params)
+
+      if address.save
+        render json: address, status: :created
+      else
+        render json: address.errors, status: :unprocessable_entity
       end
+    end
     
-      def new
-      
+    def update
+      address = Address.find(params[:id])
+
+      if @address.update(address_params)
+        render json: address, status: :ok
+      else
+        render json: address.errors, status: :unprocessable_entity
       end
+    end
     
-      def edit
+    def destroy
+      address = Address.find(params[:id])
+      address.destroy
+    
+      render json: { message: 'Address deleted successfully' }, status: :o
+    end
+    
+    private
+  
+      # Only allow a list of trusted parameters through.
+      def address_params
+        params.require(:address).permit(:user_id)
       end
-    
-      def create
-      end
-    
-      # PATCH/PUT /orders/1 or /orders/1.json
-      def update
-      end
-    
-      # DELETE /orders/1 or /orders/1.json
-      def destroy
-      end
-    
-      private
-    
-        # Only allow a list of trusted parameters through.
-        def order_params
-          params.require(:address).permit(:user_id)
-        end
 end
