@@ -197,17 +197,19 @@ products.each do |product_data|
     end
 end
 
-existing_user = User.find_by(phone_number: user_data[:phone_number])
+# hash to keep track of created user phone numbers
+created_user_phone_numbers = []
 
-if existing_user.nil?
-  # If the user does not exist, create the user
-  new_user = User.create(user_data)
-  address_data[:user_id] = new_user.id # Set the user_id in the address_data
-else
-  # If the user already exists, use the existing user's ID
-  address_data[:user_id] = existing_user.id
+users.each do |user_data|
+  # Check if a user with the same phone number already exists
+  existing_user = User.find_by(phone_number: user_data[:phone_number])
+
+  if existing_user.nil? && !created_user_phone_numbers.include?(user_data[:phone_number])
+    # Create the user only if it doesn't already exist and the phone number is not repeated
+    User.create(user_data)
+    created_user_phone_numbers << user_data[:phone_number]
+  end
 end
-
 
 addresses.each do |address|
     Address.create(address)
