@@ -215,9 +215,22 @@ users.each do |user_data|
   end
 end
 
-addresses.each do |address|
-    Address.create(address)
+# Define a hash to keep track of created addresses for each user
+created_user_addresses = {}
+
+addresses.each do |address_data|
+  user_id = address_data[:user_id]
+
+  # Check if an address with the same user_id already exists
+  existing_address = Address.find_by(user_id: user_id, city: address_data[:city], region: address_data[:region])
+
+  if existing_address.nil?
+    # Create the address only if it doesn't already exist for the same user
+    Address.create(address_data)
+    created_user_addresses[user_id] = true
+  end
 end
+
 
 # Commit the database transaction after data insertion
 ActiveRecord::Base.connection.commit_db_transaction
