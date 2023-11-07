@@ -2,7 +2,7 @@ class AddressesController < ApplicationController
     def index
         addresses = Address.all
         render json: orders
-      end
+    end
     
       def show
       end
@@ -29,6 +29,6 @@ class AddressesController < ApplicationController
     
         # Only allow a list of trusted parameters through.
         def order_params
-          params.require(:order).permit(:user_id)
+          params.require(:address).permit(:user_id)
         end
 end
