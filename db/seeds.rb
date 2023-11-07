@@ -169,6 +169,23 @@ products = [
     }
 ]
 
+users = [
+    {
+        first_name: "John",
+        last_name: "Doe",
+        phone_number: "0712345678",
+        address: "nairobi",
+        region: "nairobi",
+        city: "nairobi",
+    }
+]
+
+addresses = [
+    {
+        user_id: 1
+    }
+]
+
 # Seed the data
 products.each do |product_data|
     # Check if a product with the same title already exists
@@ -178,6 +195,14 @@ products.each do |product_data|
       # Create the product only if it doesn't already exist
       Product.create(product_data)
     end
+end
+
+users.each do |user|
+    Product.create(user)
+end
+
+addresses.each do |address|
+    address.create(address)
 end
 
 # Commit the database transaction after data insertion
