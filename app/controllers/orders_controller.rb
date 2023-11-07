@@ -1,31 +1,32 @@
 class OrdersController < ApplicationController
   def index
     orders = Order.all
-    render json: orders
+    render json: orders, status: :ok
   end
 
   def show
+    order = Order.find(params[:id])
+    render json: order, status: :ok
   end
 
-  def new
-    @order = Order.new
-  end
+  # def new
+  #   @order = Order.new
+  # end
 
-  def edit
-  end
+  # def edit
+  # end
 
-  def create
-    @order = Order.new(order_params)
-  end
+  # def create
+  #   @order = Order.new(order_params)
+  # end
 
-  # PATCH/PUT /orders/1 or /orders/1.json
-  def update
-  end
+  # def update
+  # end
 
   # DELETE /orders/1 or /orders/1.json
-  def destroy
-    @order.destroy
-  end
+  # def destroy
+  #   @order.destroy
+  # end
 
   private
 
