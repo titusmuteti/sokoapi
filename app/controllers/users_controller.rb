@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
   def index
     users = User.all
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
 
   def create
-    user = User.new(client_params)
+    user = User.new(user_params)
       
     if user.save
       session[:user_id] = user.id
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     if orders.any?
       Order.each do |order|
-        order.update(user_id: nil)
+        order.destroy
       end
     end
   end

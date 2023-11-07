@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    skip_before_action:verify_authenticity_token
+    skip_before_action :verify_authenticity_token
     wrap_parameters format: []
 
     before_action :set_current_user
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_current_user
-        @current_user = current_user
+        current_user = current_user
     end
 
     def logged_in?
