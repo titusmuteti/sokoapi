@@ -1,15 +1,9 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
-    render json:users, status: :ok
+    users = User.all
+    render json: users, status: :ok
   end
 
-  def show
-  end
-
-  # GET /users/new
-  def new
-  end
 
   private
 
