@@ -198,11 +198,15 @@ products.each do |product_data|
 end
 
 users.each do |user|
-    Product.create(user)
+    existing_user = User.find_by_id(user.id)
+
+    if existing_user.nil?
+        User.create(user)
+    end
 end
 
 addresses.each do |address|
-    address.create(address)
+    Address.create(address)
 end
 
 # Commit the database transaction after data insertion
