@@ -198,7 +198,7 @@ products.each do |product_data|
 end
 
 users.each do |user|
-    existing_user = User.find_by_id(phone_number: existing_user[:phone_number])
+    existing_user = User.find_by(phone_number: existing_user[:phone_number])
 
     if existing_user.nil?
         User.create(user)
