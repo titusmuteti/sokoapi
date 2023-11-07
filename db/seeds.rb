@@ -181,6 +181,17 @@ users = [
         city: "nairobi",
         password: "John123"
 
+    },
+
+    {
+        first_name: "Cate",
+        last_name: "Sydney",
+        email: "sydney@example.com",
+        phone_number: "0787654321",
+        address: "mombasa",
+        region: "mombasa",
+        city: "mombasa",
+        password: "123"
     }
 ]
 
@@ -189,6 +200,11 @@ addresses = [
         user_id: 1,
         city: "nairobi",
         region: "nairobi"
+    },
+    {
+        user_id: 2,
+        city: "mombasa",
+        region: "mombasa"
     }
 ]
 
