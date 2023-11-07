@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_current_user
-        current_user = current_user
+        @current_user = current_user
     end
 
     def logged_in?
@@ -24,8 +24,7 @@ class ApplicationController < ActionController::Base
 
     def require_login
         unless logged_in?
-            flash[:error] = "You must be logged in to access this section"
-            redirect_to login_path # halts request cycle 
+            render json: { error: "You must be logged in to access this section" }, status: :unauthorized
         end
     end
 
@@ -35,8 +34,8 @@ class ApplicationController < ActionController::Base
         render json: { error: "This record does not exist!" }, status: :not_found
     end
 
-    def record_invalid(invalid)
-      render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
-    end 
+    def record_invalid
+        render json: { errors: record.errors.full_messages }, status: :unprocessable_entity
+    end      
   
 end
