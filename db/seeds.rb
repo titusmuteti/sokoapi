@@ -197,7 +197,7 @@ users = [
         first_name: "Amos",
         last_name: "Wetu",
         email: "wetu@example.com",
-        phone_number: "0787654321",
+        phone_number: "0785654321",
         address: "mombasa",
         region: "mombasa",
         city: "mombasa",
