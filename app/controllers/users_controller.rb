@@ -7,9 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by_id(id: session[:client_id])
-    if client
-      render json: client, status: :ok
+    user = User.find_by_id(id: session[:user_id])
+    if user
+      render json: user, status: :ok
     else
       render json: { error: "You must be logged in to access this content" }, status: :unauthorized
     end
@@ -31,15 +31,19 @@ class UsersController < ApplicationController
     orders = Order.where(user_id: user.id)
 
     if orders.any?
-      orders.each(&:destroy)
+      orders.each do |order|
+        order.update(user_id: nil)
+      end
     end
 
-    user.destroy # To delete the user
-
-    head :no_content
+    @user.destroy
+    render json: { message: "Client deleted" }, status: :ok
   end
 
   private
+  def record_invalid
+    render json: {error: "Invalid user"}, status: :unprocessable_entity
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :phone_number, :address, :region, :city)
