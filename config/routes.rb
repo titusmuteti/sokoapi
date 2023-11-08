@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   resources :products
   resources :addresses
 
-  post '/login', to: "session#create"
+  post '/login', to: "sessions#create"
   delete '/logout', to: "session#destroy"
-
-  get '/check_user', to: "session#check_user"
-
 end
