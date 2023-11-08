@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :addresses
 
   post '/login', to: "sessions#create"
-  delete '/logout', to: "session#destroy"
+  delete '/logout', to: "sessions#destroy"
 end
