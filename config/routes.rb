@@ -6,4 +6,7 @@ Rails.application.routes.draw do
 
   post '/login', to: "sessions#create"
   delete '/logout', to: "sessions#destroy"
+
+  match "/login", to: proc { [204, {}, []] }, via: :options
+
 end

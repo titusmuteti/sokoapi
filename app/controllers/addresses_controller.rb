@@ -4,6 +4,11 @@ class AddressesController < ApplicationController
     render json: addresses, status: :ok
   end
 
+  def show
+    address = Address.find(params[:id])
+    render json: address, status: :ok
+  end
+
   def edit
     @address = Address.find(params[:id])
   end
@@ -33,15 +38,6 @@ class AddressesController < ApplicationController
     address.destroy
 
     render json: { message: 'Address deleted successfully' }, status: :ok
-  end
-
-  def show
-    address = Address.find(params[:id])
-    if address
-      render json: address, status: :ok
-    else
-      render json: { error: 'Address not found' }, status: :not_found
-    end
   end
 
   private
