@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
     skip_before_action :verify_authenticity_token
     wrap_parameters format: []
-    before_action :require_login
   
     include ActionController::Cookies
   
