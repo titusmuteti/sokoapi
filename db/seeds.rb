@@ -192,6 +192,16 @@ users = [
         region: "mombasa",
         city: "mombasa",
         password: "123"
+    },
+    {
+        first_name: "Amos",
+        last_name: "Wetu",
+        email: "wetu@example.com",
+        phone_number: "0787654321",
+        address: "mombasa",
+        region: "mombasa",
+        city: "mombasa",
+        password: "123"
     }
 ]
 
