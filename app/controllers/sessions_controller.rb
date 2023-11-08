@@ -18,15 +18,4 @@ class SessionsController < ApplicationController
       render json: { error: "You must be logged in" }, status: :unauthorized
     end
   end
-
-  def check_user
-    email = params[:email]
-    user_exists = User.find_by(email: email)
-
-    if user_exists
-      render json: { message: 'User exists' }, status: :ok
-    else
-      render json: { message: 'User does not exist' }, status: :not_found
-    end
-  end
 end

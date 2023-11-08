@@ -14,18 +14,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def check_user
-    email = params[:email]
-    user_exists = User.find_by(email: email)
-  
-    if user_exists
-      render json: { message: 'User exists', redirect: '/payment' }, status: :ok
-    else
-      render json: { message: 'User does not exist' }, status: :not_found
-    end
-  end
-  
-
   def create
     user = User.new(user_params)
 
