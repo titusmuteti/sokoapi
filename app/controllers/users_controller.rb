@@ -7,8 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    if logged_in?
-      render json: @current_user, status: :ok
+    user = User.find_by_id(id: session[:client_id])
+    if client
+      render json: client, status: :ok
     else
       render json: { error: "You must be logged in to access this content" }, status: :unauthorized
     end
