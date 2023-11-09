@@ -172,13 +172,10 @@ products = [
 
 users = [
     {
-        first_name: "John",
-        last_name: "Doe",
+        first_name: "Mark",
+        last_name: "Masai",
         email: "john@example.com",
-        phone_number: "0712345678",
-        address: "nairobi",
-        region: "nairobi",
-        city: "nairobi",
+        phone_number: "0722345678",
         password: "John123"
 
     },
@@ -188,9 +185,6 @@ users = [
         last_name: "Sydney",
         email: "sydney@example.com",
         phone_number: "0787654321",
-        address: "mombasa",
-        region: "mombasa",
-        city: "mombasa",
         password: "123"
     },
     {
@@ -198,21 +192,18 @@ users = [
         last_name: "Wetu",
         email: "wetu@example.com",
         phone_number: "0785654321",
-        address: "mombasa",
-        region: "mombasa",
-        city: "mombasa",
         password: "123"
     }
 ]
 
 addresses = [
     {
-        user_id: 1,
+        user_id: 5,
         city: "nairobi",
         region: "nairobi"
     },
     {
-        user_id: 2,
+        user_id: 4,
         city: "mombasa",
         region: "mombasa"
     }
