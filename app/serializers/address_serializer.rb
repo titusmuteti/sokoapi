@@ -1,5 +1,5 @@
 class AddressSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :city, :region
 
   has_many :orders
   belongs_to :user
