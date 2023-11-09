@@ -5,7 +5,7 @@ require 'bcrypt'
 puts "🌱 Seeding..."
 
 # Establish the database connection
-database_url = 'postgres://umqzjqus:uQAgaKtz40n78QfhVEB9ZUyYzi693eBP@rain.db.elephantsql.com/umqzjqus'
+database_url = 'postgres://nlrvzhul:IOstMVUu6Hh0lwCrIv6lMI-KyGxuXQtp@rain.db.elephantsql.com/nlrvzhul'
 ActiveRecord::Base.establish_connection(database_url)
 
 products = [
@@ -198,12 +198,12 @@ users = [
 
 addresses = [
     {
-        user_id: 5,
+        user_id: 1,
         city: "nairobi",
         region: "nairobi"
     },
     {
-        user_id: 4,
+        user_id: 2,
         city: "mombasa",
         region: "mombasa"
     }

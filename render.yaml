@@ -1,7 +1,7 @@
 databases:
   - name: sokodb
-    databaseName: umqzjqus
-    user: umqzjqus
+    databaseName: nlrvzhul
+    user: nlrvzhul
 
 services:
   - type: web
@@ -11,6 +11,6 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
-        value: "postgres://umqzjqus:uQAgaKtz40n78QfhVEB9ZUyYzi693eBP@rain.db.elephantsql.com/umqzjqus"
+        value: "postgres://nlrvzhul:IOstMVUu6Hh0lwCrIv6lMI-KyGxuXQtp@rain.db.elephantsql.com/nlrvzhul"
       - key: RAILS_MASTER_KEY
         sync: false
