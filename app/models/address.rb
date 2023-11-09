@@ -1,4 +1,4 @@
 class Address < ApplicationRecord
-    belongs_to :user, foreign_key: 'user_id'
+    belongs_to :user
     has_many :orders
 end
