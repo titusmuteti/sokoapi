@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :add_to_cart]
+
   def index
     orders = Order.all
     render json: orders, status: :ok
@@ -34,21 +36,15 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    order = current_user.orders.find_or_create_by(order_status: 'cart')
-
     product = Product.find(params[:product_id])
 
-    if order.update(
-      user_id: current_user.id,
-      product_id: product.id,
-      quantity: order.quantity.to_i + 1,
-      total_price: order.total_price.to_d + product.price.to_d
-    )
-      render json: order, status: :created
+    if @order.add_product(product)
+      render json: @order, status: :created
     else
-      render json: order.errors, status: :unprocessable_entity
+      render json: @order.errors, status: :unprocessable_entity
     end
   end
+
 
   def reduce_quantity
     order_item = OrderItem.find(params[:order_item_id])
@@ -78,10 +74,13 @@ class OrdersController < ApplicationController
   end
 
   private
+  def set_order
+    @order = current_user.orders.find_or_create_by(order_status: 'cart')
+  end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:quantity, :total_price, :order_status, :order_date, :user_id, :product_id)
-    end
-    
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:quantity, :total_price, :order_status, :order_date, :user_id, :product_id)
+  end
+  
 end

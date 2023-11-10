@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
-  resources :orders do
-    member do
-      post 'add_to_cart/:product_id', to: 'orders#add_to_cart', as: :add_to_cart
-      patch 'reduce_quantity/:order_item_id', to: 'orders#reduce_quantity', as: :reduce_quantity
-      delete 'remove_from_cart/:order_item_id', to: 'orders#remove_from_cart', as: :remove_from_cart
-    end
-  end
+  # resources :orders do
+  #   member do
+  #     post 'add_to_cart/:product_id', to: 'orders#add_to_cart', as: :add_to_cart
+  #     patch 'reduce_quantity/:order_item_id', to: 'orders#reduce_quantity', as: :reduce_quantity
+  #     delete 'remove_from_cart/:order_item_id', to: 'orders#remove_from_cart', as: :remove_from_cart
+  #   end
+  # end
 
   get '/orders', to: 'orders#index'
   get '/orders/:id', to: 'orders#show', as: :show_order
+
+  resources :users, only: [] do
+    resources :orders, only: [:create] do
+      post '/orders/add_to_cart/:product_id', to: 'orders#add_to_cart', on: :collection, as: :add_to_cart
+    end
+  end
 
   resources :users
   resources :products
