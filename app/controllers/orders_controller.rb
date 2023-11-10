@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
     product = Product.find(params[:product_id])
 
     if order.update(
+      user_id: current_user.id,
       product_id: product.id,
       quantity: order.quantity.to_i + 1,
       total_price: order.total_price.to_d + product.price.to_d
