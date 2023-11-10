@@ -37,19 +37,15 @@ class OrdersController < ApplicationController
     order = current_user.orders.find_or_create_by(order_status: 'cart')
 
     product = Product.find(params[:product_id])
-    order_item = order.order_items.find_or_initialize_by(product: product)
 
-    if order_item.new_record?
-      order_item.quantity = 1
-      order_item.price = product.price
-    else
-      order_item.quantity += 1
-    end
-
-    if order_item.save
+    if order.update(
+      product_id: product.id,
+      quantity: order.quantity.to_i + 1,
+      total_price: order.total_price.to_d + product.price.to_d
+    )
       render json: order, status: :created
     else
-      render json: order_item.errors, status: :unprocessable_entity
+      render json: order.errors, status: :unprocessable_entity
     end
   end
 
