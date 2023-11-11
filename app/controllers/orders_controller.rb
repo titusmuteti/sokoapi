@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user, only: [:create, :update]
-
   def index
     orders = Order.all
     render json: orders, status: :ok
