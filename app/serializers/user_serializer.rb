@@ -3,5 +3,4 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :addresses
   has_many :orders
-  has_many :products, through: :orders
 end
