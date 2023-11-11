@@ -37,9 +37,9 @@ class ApplicationController < ActionController::Base
     render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
 
-  # def authenticate_user
-  #   unless logged_in?
-  #     render json: { error: 'Unauthorized' }, status: :unauthorized
-  #   end
-  # end
+  def authenticate_user
+    unless logged_in?
+      render json: { error: 'Unauthorized' }, status: :unauthorized
+    end
+  end
 end
