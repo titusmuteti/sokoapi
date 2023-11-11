@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_order, only: [:show, :update]
 
   def index
@@ -39,6 +38,7 @@ class OrdersController < ApplicationController
   end
 
   private
+
   def set_order
     @order = current_user.orders.find(params[:id])
   end
@@ -47,5 +47,4 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:user_id, :address_id, :order_date, :order_status, :payment_status, :total_amount)
   end
-  
 end
