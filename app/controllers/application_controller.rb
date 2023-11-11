@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   wrap_parameters format: []
-  # protect_from_forgery with: :null_session
   before_action :set_current_user
 
   include ActionController::Cookies
@@ -36,10 +35,4 @@ class ApplicationController < ActionController::Base
   def record_invalid(invalid)
     render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end
-
-  # def authenticate_user
-  #   unless logged_in?
-  #     render json: { error: 'Unauthorized' }, status: :unauthorized
-  #   end
-  # end
 end
