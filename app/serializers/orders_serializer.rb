@@ -3,5 +3,5 @@ class OrdersSerializer < ActiveModel::Serializer
 
   belongs_to :user
   belongs_to :address
-  has_many :order_details
+  has_many :order_items
 end
