@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
+  post '/users/:user_id/orders/add_to_cart/:product_id', to: 'orders#add_to_cart', as: :add_to_cart
+
+
   resources :users
   resources :products
   resources :addresses
