@@ -1,18 +1,16 @@
 class Order < ApplicationRecord
   belongs_to :user
   belongs_to :product
-
+  
   def add_product(product)
-    order_item = order_items.find_or_initialize_by(product_id: product.id)
+    existing_order_item = order_items.find_by(product_id: product.id)
 
-    if order_item.new_record?
-      order_item.quantity = 1
-      order_item.total_price = product.price
+    if existing_order_item
+      existing_order_item.quantity += 1
     else
-      order_item.quantity += 1
-      order_item.total_price += product.price
+      existing_order_item = order_items.build(product: product, quantity: 1, total_price: product.price)
     end
 
-    order_item.save
+    save
   end
 end
