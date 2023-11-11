@@ -10,12 +10,6 @@ Rails.application.routes.draw do
   get '/orders', to: 'orders#index'
   get '/orders/:id', to: 'orders#show', as: :show_order
 
-  resources :users, only: [] do
-    resources :orders, only: [:create] do
-      post '/orders/add_to_cart/:product_id', to: 'orders#add_to_cart', on: :collection, as: :add_to_cart
-    end
-  end
-
   post '/users/:user_id/orders/add_to_cart/:product_id', to: 'orders#add_to_cart', as: :add_to_cart
 
 
