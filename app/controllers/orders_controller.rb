@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update]
+  # before_action :authenticate_user!, only: [:create] 
 
   def index
     orders = Order.all
@@ -15,10 +16,17 @@ class OrdersController < ApplicationController
     product = Product.find(params[:product_id])
     order = current_user.orders.find_or_create_by(order_status: 'cart')
 
-    if order.add_product(product)
-      render json: order, status: :created
+    order_item = order.order_items.build(
+      product: product,
+      quantity: 1,
+      unit_price: product.price,
+      total_price: product.price
+    )
+
+    if order_item.save
+      render json: { message: 'Product added to cart successfully', order: order }, status: :created
     else
-      render json: order.errors, status: :unprocessable_entity
+      render json: { errors: order_item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
