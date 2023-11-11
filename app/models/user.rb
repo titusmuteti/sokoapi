@@ -3,7 +3,6 @@ class User < ApplicationRecord
   
     has_many :addresses
     has_many :orders
-    has_many :products, through: :orders
   
     accepts_nested_attributes_for :addresses
   

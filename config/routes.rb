@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :order_items
   # resources :orders do
   #   member do
   #     post 'add_to_cart/:product_id', to: 'orders#add_to_cart', as: :add_to_cart
