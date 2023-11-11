@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :add_to_cart]
+  before_action :set_order, only: [:show, :update]
 
   def index
     orders = Order.all
@@ -11,14 +11,11 @@ class OrdersController < ApplicationController
     render json: order, status: :ok
   end
 
-  def edit
-    order = Order.find(params[:id])
-  end
-
   def create
-    order = Order.new(order_params)
+    product = Product.find(params[:product_id])
+    order = current_user.orders.find_or_create_by(order_status: 'cart')
 
-    if order.save
+    if order.add_product(product)
       render json: order, status: :created
     else
       render json: order.errors, status: :unprocessable_entity
@@ -26,56 +23,16 @@ class OrdersController < ApplicationController
   end
 
   def update
-    order = Order.find(params[:id])
-
-    if order.update(order_params)
-      render json: order, status: :ok
-    else
-      render json: order.errors, status: :unprocessable_entity
-    end
-  end
-
-  def add_to_cart
-    product = Product.find(params[:product_id])
-
-    if @order.add_product(product)
-      render json: @order, status: :created
+    if @order.update(order_params)
+      render json: @order, status: :ok
     else
       render json: @order.errors, status: :unprocessable_entity
     end
   end
 
-
-  def reduce_quantity
-    order_item = OrderItem.find(params[:order_item_id])
-
-    if order_item.quantity > 1
-      order_item.quantity -= 1
-      if order_item.save
-        render json: order_item.order, status: :ok
-      else
-        render json: order_item.errors, status: :unprocessable_entity
-      end
-    else
-      destroy_order_item(order_item)
-    end
-  end
-
-  def remove_from_cart
-    order_item = OrderItem.find(params[:order_item_id])
-    destroy_order_item(order_item)
-  end
-
-  def destroy
-    order = Order.find(params[:id])
-    order.destroy
-    
-    render json: { message: 'order deleted successfully' }, status: :o
-  end
-
   private
   def set_order
-    @order = current_user.orders.find_or_create_by(order_status: 'cart')
+    @order = current_user.orders.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
