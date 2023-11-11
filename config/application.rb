@@ -24,8 +24,8 @@ module MakawascoBackend
     # CORS configuration
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*' # Adjust this to allow requests from specific domains instead of '*'
-        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+        origins 'http://localhost:3000', 'https://sokoapi.onrender.com'
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options, :head], credentials: true
       end
     end
 
