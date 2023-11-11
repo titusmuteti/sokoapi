@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  # before_action :authenticate_user, only: [:create, :update]
+  before_action :authenticate_user, only: [:create, :update]
 
   def index
     orders = Order.all
@@ -13,21 +13,27 @@ class OrdersController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-    order = current_user.orders.find_or_create_by(order_status: 'cart')
-
-    order_item = order.order_items.build(
-      product: product,
-      quantity: 1,
-      unit_price: product.price,
-      total_price: product.price
-    )
-
-    if order_item.save
-      render json: { message: 'Product added to cart successfully', order: order }, status: :created
+    
+    if current_user
+      order = current_user.orders.find_or_create_by(order_status: 'cart')
+  
+      order_item = order.order_items.build(
+        product: product,
+        quantity: 1,
+        unit_price: product.price,
+        total_price: product.price
+      )
+  
+      if order_item.save
+        render json: { message: 'Product added to cart successfully', order: order }, status: :created
+      else
+        render json: { errors: order_item.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: order_item.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: 'User not authenticated' }, status: :unprocessable_entity
     end
   end
+  
 
   def update
     if @order.update(order_params)
