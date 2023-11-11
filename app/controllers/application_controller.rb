@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action:verify_authenticity_token
   wrap_parameters format: []
-  # protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
   # before_action :authorize
   before_action :set_current_user
 
@@ -27,7 +27,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
   end
 
   def set_current_user
-      @current_user = current_user
+    @current_user = User.find_by(id: session[:user_id])
   end
 
   def logged_in?
