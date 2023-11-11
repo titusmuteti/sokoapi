@@ -17,7 +17,7 @@ require "rack/cors"
 
 Bundler.require(*Rails.groups)
 
-module MakawascoBackend
+module Sokoapi
   class Application < Rails::Application
     config.load_defaults 7.0
 
