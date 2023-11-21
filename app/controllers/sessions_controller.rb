@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      puts "Session after login: #{session.inspect}" # Add this line for logging
+      puts "Session after login: #{session.inspect}" 
       render json: user, status: :created
     else
       render json: { error: "Invalid email or password" }, status: :unauthorized
