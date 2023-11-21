@@ -13,7 +13,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_user
-    @current_user = User.find_by(id: session[:user_id])
+    token = request.headers['Authorization']&.split&.last
+
+    if token
+      decoded_token = User.decode_jwt(token)
+      @current_user = User.find_by(id: decoded_token['user_id'])
+    end
   end
 
   def logged_in?
