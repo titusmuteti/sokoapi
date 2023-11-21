@@ -6,8 +6,7 @@ class Order < ApplicationRecord
   validates :order_status, inclusion: { in: %w(cart processing completed) }
 
   def add_product(product)
-    order_item = order_items.build(product: product, order: self)
-    order_item.order_id = self.id 
+    order_item = order_items.build(product: product)
     
     if order_item.save
       true
@@ -16,7 +15,7 @@ class Order < ApplicationRecord
       false
     end
   end
-
+  
   def owned_by?(user)
     self.user == user
   end
