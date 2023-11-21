@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :require_login
-  before_action :set_order, only: [:show, :update]
+  before_action :set_order, only: [:show, :update, :create]
 
   def index
     orders = Order.all
@@ -13,10 +13,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    puts "Entering create method" 
-    puts "Session in OrdersController: #{session.inspect}"
-    require_login
-  
     product = Product.find(params[:product_id])
     order = current_user.orders.find_or_create_by(order_status: 'cart')
   
