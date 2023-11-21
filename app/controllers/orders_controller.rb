@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    puts "Session in OrdersController: #{session.inspect}"
     require_login
   
     product = Product.find(params[:product_id])
