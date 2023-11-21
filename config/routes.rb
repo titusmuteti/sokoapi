@@ -3,11 +3,7 @@ Rails.application.routes.draw do
   resources :users
   resources :products
   resources :addresses
-
-  post '/orders', to: 'orders#create'
-
-  get '/orders', to: 'orders#index'
-  get '/orders/:id', to: 'orders#show'
+  resources :orders
 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
