@@ -27,21 +27,15 @@ class OrderItemsController < ApplicationController
 
   def update
     @order_item = OrderItem.find(params[:id])
-
-    # Get the current quantity and unit price from the order item
-    current_quantity = @order_item.quantity
-    unit_price = @order_item.unit_price
-
+    order_item_params = params.permit(:quantity)
+  
     if params[:increase_quantity]
-      @order_item.quantity += 1
-    elsif params[:decrease_quantity] && current_quantity > 1
-      @order_item.quantity -= 1
+      order_item_params[:quantity] = @order_item.quantity + 1
+    elsif params[:decrease_quantity] && @order_item.quantity > 1
+      order_item_params[:quantity] = @order_item.quantity - 1
     end
-
-    # Update the total price based on the new quantity
-    @order_item.total_price = @order_item.quantity * unit_price
-
-    if @order_item.save
+  
+    if @order_item.update(order_item_params)
       redirect_to @order_item, notice: 'Order item was successfully updated.'
     else
       render :edit
