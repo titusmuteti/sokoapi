@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :address, optionals: true
+  belongs_to :address, optional: true
   has_many :order_items, dependent: :destroy 
 
   validates :order_status, inclusion: { in: %w(cart processing completed) }
