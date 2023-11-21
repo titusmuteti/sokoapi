@@ -1,6 +1,5 @@
 # app/controllers/order_items_controller.rb
 class OrderItemsController < ApplicationController
-  before_action :set_order_item, only: %i[show edit update destroy]
 
   def index
     @order_items = OrderItem.all
@@ -27,7 +26,22 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    if @order_item.update(order_item_params)
+    @order_item = OrderItem.find(params[:id])
+
+    # Get the current quantity and unit price from the order item
+    current_quantity = @order_item.quantity
+    unit_price = @order_item.unit_price
+
+    if params[:increase_quantity]
+      @order_item.quantity += 1
+    elsif params[:decrease_quantity] && current_quantity > 1
+      @order_item.quantity -= 1
+    end
+
+    # Update the total price based on the new quantity
+    @order_item.total_price = @order_item.quantity * unit_price
+
+    if @order_item.save
       redirect_to @order_item, notice: 'Order item was successfully updated.'
     else
       render :edit
@@ -40,11 +54,6 @@ class OrderItemsController < ApplicationController
   end
 
   private
-
-  def set_order_item
-    @order_item = OrderItem.find(params[:id])
-  end
-
   def order_item_params
     params.require(:order_item).permit(:product_id, :order_id, :quantity, :total_price, :unit_price)
   end
