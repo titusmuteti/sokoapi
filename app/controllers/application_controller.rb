@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   wrap_parameters format: []
-  before_action -> { @current_user = User.find_by(id: session[:user_id]) }
+  before_action :set_current_user
 
   include ActionController::Cookies
 
