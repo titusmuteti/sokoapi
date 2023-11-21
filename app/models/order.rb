@@ -6,11 +6,15 @@ class Order < ApplicationRecord
   validates :order_status, inclusion: { in: %w(cart processing completed) }
 
   def add_product(product)
-    order_items.create(product: product)
+    transaction do
+      save! unless persisted?
+      order_items.create!(product: product)
+    end
   rescue ActiveRecord::RecordInvalid
     errors.add(:base, 'Failed to add product to the order')
     false
-  end  
+  end
+   
 
   def owned_by?(user)
     self.user == user
