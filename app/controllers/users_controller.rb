@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, except: [:create, :index]
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
   def index
@@ -41,6 +42,12 @@ class UsersController < ApplicationController
   end
 
   private
+  def require_login
+    unless @current_user
+      render json: { error: "You must be logged in to access this content" }, status: :unauthorized
+    end
+  end
+
   def record_invalid
     render json: {error: "Invalid user"}, status: :unprocessable_entity
   end
