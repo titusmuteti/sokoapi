@@ -9,15 +9,20 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
 
   def current_user
-    User.find_by(id: session[:user_id])
+    @current_user
   end
 
   def set_current_user
     token = request.headers['Authorization']&.split&.last
 
     if token
-      decoded_token = User.decode_jwt(token)
-      @current_user = User.find_by(id: decoded_token['user_id'])
+      begin
+        decoded_token = User.decode_jwt(token)
+        @current_user ||= User.find_by(id: decoded_token['user_id'])
+      rescue JWT::DecodeError
+        # Handle JWT decode error, e.g., token is invalid
+        render json: { error: 'Invalid token' }, status: :unauthorized
+      end
     end
   end
 
