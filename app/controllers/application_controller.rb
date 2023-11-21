@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
   wrap_parameters format: []
-  before_action :set_current_user
+  before_action -> { @current_user = User.find_by(id: session[:user_id]) }
 
   include ActionController::Cookies
 
@@ -23,8 +23,10 @@ class ApplicationController < ActionController::Base
   def require_login
     unless logged_in?
       render json: { error: 'Unauthorized. User not logged in.' }, status: :unauthorized
+      return
     end
   end
+  
 
   private
 
