@@ -14,15 +14,22 @@ class OrdersController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-    order = current_user.orders.find_or_create_by(order_status: 'cart')
+
+    address_id = params[:address_id]
+    
+    unless address_id.present?
+      render json: { error: 'Address is required for creating an order' }, status: :unprocessable_entity
+      return
+    end
+
+    order = current_user.orders.find_or_create_by(order_status: 'cart', address_id: address_id)
   
     if order.add_product(product)
       render json: order, status: :created
     else
       render json: { errors: order.errors.full_messages }, status: :unprocessable_entity
     end
-  end  
-
+  end 
   def update
     if @order.owned_by?(current_user) && @order.update(order_params)
       render json: @order, status: :ok
