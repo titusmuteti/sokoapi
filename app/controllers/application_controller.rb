@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     unless logged_in?
-      render json: { error: 'Unauthorized', details: 'You must be logged in to access this resource.' }, status: :unauthorized
+      render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   end
 
