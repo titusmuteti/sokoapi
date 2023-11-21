@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    puts "Entering create method" 
     puts "Session in OrdersController: #{session.inspect}"
     require_login
   
