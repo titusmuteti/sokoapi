@@ -5,8 +5,6 @@ class Order < ApplicationRecord
 
   validates :order_status, inclusion: { in: %w(cart processing completed) }
 
-  serialize :order_item_ids, Array
-
   def add_product(product)
     transaction do
       save! unless persisted?
