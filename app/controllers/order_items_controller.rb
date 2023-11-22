@@ -8,10 +8,6 @@ class OrderItemsController < ApplicationController
   def show
   end
 
-  def new
-    @order_item = OrderItem.new
-  end
-
   def create
     @order_item = OrderItem.new(order_item_params)
 
@@ -22,18 +18,15 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     @order_item = OrderItem.find(params[:id])
     order_item_params = params.permit(:quantity)
   
     if params[:increase_quantity]
-      order_item_params[:quantity] = @order_item.quantity + 1
-    elsif params[:decrease_quantity] && @order_item.quantity > 1
+      order_item_params[:quantity] = (@order_item.quantity || 0) + 1
+    elsif params[:decrease_quantity] && @order_item.quantity.to_i > 1
       order_item_params[:quantity] = @order_item.quantity - 1
-    end
+    end    
   
     if @order_item.update(order_item_params)
       redirect_to @order_item, notice: 'Order item was successfully updated.'
