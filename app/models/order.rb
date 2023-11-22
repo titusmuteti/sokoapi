@@ -10,7 +10,7 @@ class Order < ApplicationRecord
   def add_product(product)
     transaction do
       save! unless persisted?
-      order_items.create!(product: product)
+      order_item = order_items.create!(product: product)
       self.order_item_ids << order_item.id
     end
   rescue ActiveRecord::RecordInvalid
