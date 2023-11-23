@@ -19,6 +19,7 @@ class OrderItemsController < ApplicationController
   end
 
   def update
+    Rails.logger.info("Updating order item: #{params[:id]}")
     @order_item = OrderItem.find(params[:id])
     order_item_params = params.permit(:quantity)
   
