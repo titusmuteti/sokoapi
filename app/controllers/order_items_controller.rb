@@ -6,6 +6,8 @@ class OrderItemsController < ApplicationController
   end
 
   def show
+    @order_item = OrderItem.find(params[:id])
+    render json: @order_item
   end
 
   def create
