@@ -11,6 +11,8 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
-        value: "postgres://sokodb_user:dbBTboIjuB8ByGiGU0Vc6oWarfqOIFOZ@dpg-clfmbid8td7s73bb9bvg-a/sokodb"
+        fromDatabase:
+          name: sokodb
+          property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
