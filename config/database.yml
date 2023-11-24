@@ -2,14 +2,12 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: sokodb
   username: sokouser
   password: sokopassword
-  host: localhost
 
 development:
   <<: *default
-  database: <%= ENV.fetch("DB_NAME") { "sokoapi_development" } %>
+  database: <%= ENV.fetch("DB_NAME", "sokoapi_development") %>
 
 test:
   <<: *default
