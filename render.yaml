@@ -1,7 +1,7 @@
 databases:
   - name: sokodb
-    databaseName: sokodb_gnpi
-    user: sokodb_gnpi_user
+    databaseName: sokodb_ubs7
+    user: sokodb_ubs7_user
 
 services:
   - type: web
