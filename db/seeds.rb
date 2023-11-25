@@ -5,7 +5,7 @@ require 'bcrypt'
 puts "🌱 Seeding..."
 
 # Establish the database connection
-database_url = 'postgres://sokodb_user:ilRuI5SKvyBCedoX6n1Lk9ONyigZPWn0@dpg-clgu507jc5ks73ehs08g-a/sokodb_2muy'
+database_url = 'postgres://sokodb_user:5IWA2StJuGuhtSBBk0aDCdPWyLmlKGxe@dpg-clh14rmf27hc739nsqdg-a/sokodb_ylos'
 ActiveRecord::Base.establish_connection(database_url)
 
 products = [

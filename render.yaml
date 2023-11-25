@@ -1,6 +1,6 @@
 databases:
   - name: sokodb
-    databaseName: sokodb_2muy
+    databaseName: sokodb_ylos
     user: sokodb_user
 
 services:
