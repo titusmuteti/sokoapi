@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_165100) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "address_id", null: false
+    t.bigint "address_id"
     t.string "payment_status"
     t.integer "order_item_ids", default: [], null: false, array: true
     t.index ["address_id"], name: "index_orders_on_address_id"
@@ -63,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_22_165100) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
+    t.string "region"
+    t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
