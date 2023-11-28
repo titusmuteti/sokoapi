@@ -43,6 +43,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    if @order.owned_by?(current_user)
+      @order.destroy
+      render json: { message: 'Order successfully deleted' }, status: :ok
+    else
+      render json: { error: 'Unauthorized or invalid order' }, status: :unauthorized
+    end
+  end
+
   private
   def set_order
     @order = current_user.orders.find_by(id: params[:id])
