@@ -14,22 +14,26 @@ class OrdersController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-  
-    address_id = params[:address_id]
-    
+    address_id = params[:address_id]  # Include address_id
+
+    # Build order_params with order_status and optional address_id
     order_params = { order_status: 'cart' }
-  
     order_params[:address_id] = address_id if address_id.present?
-  
+
     order = current_user.orders.find_or_create_by(order_params)
-    
-    if order.add_product(product)
-      render json: order, status: :created
-    else
-      render json: { errors: order.errors.full_messages }, status: :unprocessable_entity
+
+    # Check if the product already exists in the order
+    unless order.products.include?(product)
+      order.add_product(product)
+      order.save
     end
+
+    render json: order, status: :created
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: e.message }, status: :not_found
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
-  
 
   def update
     if @order.owned_by?(current_user) && @order.update(order_params)

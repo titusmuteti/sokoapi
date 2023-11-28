@@ -11,10 +11,12 @@ class OrderItemsController < ApplicationController
   end
 
   def create
-    @order_item = OrderItem.new(order_item_params)
+    # Associate the order item with a specific order
+    @order = Order.find(params[:order_id])
+    @order_item = @order.order_items.new(order_item_params)
 
     if @order_item.save
-      redirect_to @order_item, notice: 'Order item was successfully created.'
+      redirect_to @order, notice: 'Order item was successfully created.'
     else
       render :new
     end
