@@ -14,8 +14,6 @@ class OrderItemsController < ApplicationController
     @order = Order.find(params[:order_id])
     @order_item = @order.order_items.new(order_item_params)
 
-    @order_item.quantity = 1
-
     if @order_item.save
       redirect_to @order, notice: 'Order item was successfully created.'
     else
