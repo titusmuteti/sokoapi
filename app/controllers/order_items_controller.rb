@@ -1,4 +1,3 @@
-# app/controllers/order_items_controller.rb
 class OrderItemsController < ApplicationController
 
   def index
