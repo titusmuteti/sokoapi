@@ -43,8 +43,13 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order_item.destroy
-    redirect_to order_items_url, notice: 'Order item was successfully destroyed.'
+    @order_item = OrderItem.find(params[:id])
+  
+    if @order_item.destroy
+      render json: { message: 'Order item successfully deleted' }, status: :ok
+    else
+      render json: { error: 'Failed to delete order item' }, status: :unprocessable_entity
+    end
   end
 
   private
