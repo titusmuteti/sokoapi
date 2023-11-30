@@ -4,7 +4,7 @@ class OrderItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
-  def update_quantity(change_type)
+  def update_quantity(change_type = :default)
     case change_type.to_sym
     when :increase
       update(quantity: quantity + 1)
@@ -13,5 +13,5 @@ class OrderItem < ApplicationRecord
     else
       false
     end
-  end
+  end  
 end
