@@ -4,7 +4,14 @@ class OrderItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { greater_than_or_equal_to: 1 }
 
-  def update_quantity(new_quantity = quantity)
-    update(quantity: new_quantity.to_i)
+  def update_quantity(new_quantity)
+    new_quantity = new_quantity.to_i
+
+    if new_quantity >= 1
+      update(quantity: new_quantity)
+      true
+    else
+      false
+    end
   end
 end
