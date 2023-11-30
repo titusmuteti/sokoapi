@@ -23,19 +23,12 @@ class OrderItemsController < ApplicationController
 
   def update
     @order_item = OrderItem.find(params[:id])
-    order_item_params = params.permit(:quantity)
-  
-    if params[:increase_quantity]
-      order_item_params[:quantity] = (@order_item.quantity || 0) + 1
-    elsif params[:decrease_quantity] && @order_item.quantity.to_i > 1
-      order_item_params[:quantity] = @order_item.quantity - 1
-    end    
-  
-    if @order_item.update(order_item_params)
+
+    if @order_item.update_quantity(params[:quantity_change])
       render json: @order_item, status: :ok
     else
       render json: { error: 'Failed to update order item' }, status: :unprocessable_entity
-    end    
+    end
   end
 
   def destroy
