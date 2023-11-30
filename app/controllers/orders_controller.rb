@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :require_login, only: [:create, :update]
-  before_action :set_order, only: [:show, :update]
+  before_action :set_order, only: [:show, :update, :destroy]
 
   def index
     orders = Order.all
@@ -54,11 +54,9 @@ class OrdersController < ApplicationController
 
   private
   def set_order
-    @order = current_user.orders.find_by(id: params[:id])
-  
-    unless @order
-      render json: { error: 'Order not found' }, status: :not_found
-    end
+    @order = current_user.orders.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: "Order not found: #{e.message}" }, status: :not_found
   end
 
   # Only allow a list of trusted parameters through.
