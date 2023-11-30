@@ -22,7 +22,6 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    Rails.logger.info("Updating order item: #{params[:id]}")
     @order_item = OrderItem.find(params[:id])
     order_item_params = params.permit(:quantity)
   
@@ -33,10 +32,10 @@ class OrderItemsController < ApplicationController
     end    
   
     if @order_item.update(order_item_params)
-      redirect_to @order_item, notice: 'Order item was successfully updated.'
+      render json: @order_item, status: :ok
     else
-      render :edit
-    end
+      render json: { error: 'Failed to update order item' }, status: :unprocessable_entity
+    end    
   end
 
   def destroy
