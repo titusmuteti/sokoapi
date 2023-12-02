@@ -77,6 +77,6 @@ end
 
 gem 'active_model_serializers'
 gem 'faker'
-gem 'rack-cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'jwt'
 
